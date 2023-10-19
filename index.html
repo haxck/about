@@ -143,6 +143,41 @@
         .beian {
             padding-top: 1rem;
         }
+
+
+        .nmqrcode {
+            display: inline-block;
+            position: relative;
+
+        }
+
+        .nmqrcode:before, .nmqrcode:after {
+            opacity: 0; /*透明度为完全透明*/
+            position: absolute;
+            z-index: 1000; /*设为最上层*/
+            /*鼠标放上元素上时的动画，鼠标放上后效果在.tip-*:hover:before, .tip-*:hover:after中设置;
+            0.3s:规定完成过渡效果需要多少秒或毫秒,ease:规定慢速开始，然后变快，然后慢速结束的过渡效果*/
+            transition: 0.3s ease;
+            -webkit-transition: 0.3s ease;
+            -moz-transition: 0.3s ease;
+        }
+
+        .nmqrcode:before {
+            bottom: 100%;
+            content: '';
+            background: url("./images/nightmate_qrcode.jpg") no-repeat;
+            background-size: cover;
+            width: 120px;
+            height: 120px;
+        }
+
+        .nmqrcode:hover:before, .nmqrcode:hover:after {
+            opacity: 1; /*鼠标放上时透明度为完全显示*/
+            z-index: 1000;
+        }
+
+
+
     </style>
     <script>
         var _hmt = _hmt || [];
@@ -162,7 +197,7 @@
             <h1>Haxck</h1>
             <h2>Creater &amp; Developer</h2>
             <p>👋Hi, i'm haxck.</p>
-            <p>如果失眠在深夜，NightMate(微信小程序)伴你入睡；如果心念某人，不如写一封 <a href="http://echo.haxck.com">Echo</a> 给TA。</p>
+            <p>如果失眠在深夜，<a class="nmqrcode" href="./images/nightmate_qrcode.jpg">NightMate</a>(微信小程序)伴你入睡；如果心念某人，不如写一封 <a href="http://echo.haxck.com">Echo</a> 给TA。</p>
             <p>更多内容欢迎来我 <a href="https://blog.haxck.com">Blog</a> 。</p>
             <section class="link">
                 <ul>
