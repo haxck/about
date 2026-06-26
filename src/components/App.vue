@@ -1,18 +1,19 @@
 <script setup>
 import Modal from './Modal.vue'
 import { onMounted, ref } from 'vue'
-import anime from 'animejs/lib/anime.es.js';
+// 1. 按需导入 v4 的模块化 API
+import { animate, createTimeline, utils, stagger } from 'animejs';
+
 const showModal = ref(false)
+
 onMounted(() => {
   const random_char = () => {
     const possible = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-
     return possible.charAt(Math.floor(Math.random() * possible.length));
   };
 
   const mask = (chars, progress) => {
     const masked = [];
-
     for (let i = 0; i < chars.length; i++) {
       const position = (i + 1) / chars.length;
       if (position > progress) {
@@ -21,24 +22,22 @@ onMounted(() => {
         masked.push(chars[i]);
       }
     }
-
     return masked.join('');
   };
 
   const shuffle = el => {
     const chars = el.textContent.split('');
+    const params = { progress: 0 };
 
-    const params = {
-      progress: 0
-    };
-
-    const a = anime({
-      targets: params,
+    // 2. targets 变为第一个参数
+    // 3. easing 变为 ease，easeInQuad 变为 inQuad
+    // 4. update 变为 onUpdate
+    const a = animate(params, {
       progress: 1,
-      delay: 1000,
+      delay: 0,
       duration: 1000,
-      easing: 'easeInQuad',
-      update: () => {
+      ease: 'inQuad', 
+      onUpdate: () => {
         el.textContent = mask(chars, params.progress);
       }
     });
@@ -47,46 +46,54 @@ onMounted(() => {
   for (const el of document.querySelectorAll('.shuffle')) {
     shuffle(el);
   }
-  anime.set("footer", {
+
+  // 5. anime.set 变为 utils.set
+  utils.set("footer", {
     opacity: 0,
     translateY: 20
   })
-  anime.set("#avater", {
+  utils.set("#avater", {
     opacity: 0,
   })
-  anime.set("#words", {
+  utils.set("#words", {
     opacity: 0,
     translateY: 20
   })
-  anime.set("#social", {
+  utils.set("#social", {
     opacity: 0,
     scale: 0,
   })
 
-  anime({
-    targets: '#avater',
+  // 6. targets 变为第一个参数
+  animate('#avater', {
     opacity: 1,
     duration: 1000
   })
-  let t1 = anime.timeline({
-    easing: 'easeOutExpo',
-    duration: 950,
+
+  // 7. anime.timeline 变为 createTimeline
+  // 8. 默认参数放入 defaults 中，easeOutExpo 变为 outExpo
+  let t1 = createTimeline({
+    defaults: {
+      ease: 'outExpo',
+      duration: 950,
+    }
   })
-  t1.add({
-    targets: "#words",
+
+  // 9. add 的第一个参数变为 targets
+  // 10. 使用 stagger(200) 替代原先的函数写法
+  // 11. anime.random 变为 utils.random
+  t1.add("#words", {
     translateY: 0,
     opacity: 1,
-    delay: (e, i) => { return i * 200 },
+    delay: stagger(200),
   })
-    .add({
-      targets: "#social",
+    .add("#social", {
       opacity: 1,
       scale: 1,
-      rotate: (e, i) => { return anime.random(-6, 6) },
-      delay: (e, i) => { return i * 200 },
+      rotate: () => utils.random(-6, 6),
+      delay: stagger(200),
     })
-    .add({
-      targets: "footer",
+    .add("footer", {
       opacity: 1,
       translateY: 0,
     })
@@ -221,7 +228,7 @@ onMounted(() => {
         </a>
       </p>
       <a href="https://beian.miit.gov.cn/">晋 ICP 备 16005173 号 - 1</a>
-      <p>&copy;2024 haxck.com
+      <p>&copy;2016 - 2024 haxck.com
       </p>
 
     </div>
