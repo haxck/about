@@ -23,6 +23,10 @@ jobs:
       - name: Build for server
         run: npm run build
 
+      - name: Debug SSH key
+        run: |
+          echo "key length:"
+          echo "${{ secrets.SERVER_SSH_KEY }}" | wc -c
       - name: Deploy to server
         uses: appleboy/scp-action@v1
         with:
