@@ -11,8 +11,10 @@ permissions:
 
 jobs:
   build-and-deploy-github-pages:
-    runs-on: ubuntu-latest
-
+    enviroment:
+      name: github-pages
+      url: ${{ steps.deploy-to-pages.outputs.page_url }}
+    runs-on: ubuntu-latestß
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -24,6 +26,9 @@ jobs:
 
       - name: Install
         run: npm install
+        
+      - name: setup Pages
+        uses: actions/configure-pages@v4
 
       # ========== GitHub Pages 构建 ==========
       - name: Build for GitHub Pages
@@ -33,6 +38,8 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
 
 
       # ========== 服务器部署 ==========
