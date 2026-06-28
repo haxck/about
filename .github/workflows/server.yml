@@ -26,16 +26,16 @@ jobs:
       - name: Debug SSH key
         run: |
           echo "key length:"
-          echo "${{ secrets.HOST_SERVER_SSH_KEY }}" | wc -c
+          echo "${{ secrets.HOST.SERVER_SSH_KEY }}" | wc -c
           echo "key user:"
-          echo "${{ secrets.SERVER_USER }}" | wc -c
+          echo "${{ secrets.HOST.SERVER_USER }}" | wc -c
           echo "key host:"
-          echo "${{ secrets.SERVER_HOST  }}" | wc -c
+          echo "${{ secrets.HOST.SERVER_HOST  }}" | wc -c
       - name: Deploy to server
         uses: appleboy/scp-action@v1
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ secrets.HOST.SERVER_HOST }}
+          username: ${{ secrets.HOST.SERVER_USER }}
+          key: ${{ secrets.HOST.SERVER_SSH_KEY }}
           source: "dist/*"
           target: "/var/www/html"
