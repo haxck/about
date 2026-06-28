@@ -27,6 +27,10 @@ jobs:
         run: |
           echo "key length:"
           echo "${{ secrets.SERVER_SSH_KEY }}" | wc -c
+          echo "key user:"
+          echo "${{ secrets.SERVER_USER }}" | wc -c
+          echo "key host:"
+          echo "${{ secrets.SERVER_HOST  }}" | wc -c
       - name: Deploy to server
         uses: appleboy/scp-action@v1
         with:
