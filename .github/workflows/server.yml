@@ -26,7 +26,7 @@ jobs:
       - name: Debug SSH key
         run: |
           echo "key length:"
-          echo "${{ secrets.SERVER_SSH_KEY }}" | wc -c
+          echo "${{ secrets.HOST_SERVER_SSH_KEY }}" | wc -c
           echo "key user:"
           echo "${{ secrets.SERVER_USER }}" | wc -c
           echo "key host:"
