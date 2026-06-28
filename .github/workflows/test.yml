@@ -22,9 +22,7 @@ jobs:
 
       # ========== GitHub Pages 构建 ==========
       - name: Build for GitHub Pages
-        run: npm run build
-        env:
-          VITE_BASE: /about/
+        run: npm run build:github
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -35,8 +33,6 @@ jobs:
       # ========== 服务器部署 ==========
       - name: Build for server
         run: npm run build
-        env:
-          VITE_BASE: /
 
       - name: Deploy to Server via SSH
         uses: appleboy/scp-action@v0.1.7
