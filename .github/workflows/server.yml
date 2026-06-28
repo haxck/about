@@ -6,8 +6,8 @@ on:
 
 jobs:
   build-deploy-server:
-  environment: HOST
     runs-on: ubuntu-latest
+    environment: HOST
 
     steps:
       - name: Checkout
