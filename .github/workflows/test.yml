@@ -33,7 +33,6 @@ jobs:
       # ========== 服务器部署 ==========
   build-and-deploy-server:
     runs-on: ubuntu-latest
-    run: npm run build
 
     steps:
       - name: Checkout
