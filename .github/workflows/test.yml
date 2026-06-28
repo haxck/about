@@ -4,6 +4,11 @@ on:
   push:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy-github-pages:
     runs-on: ubuntu-latest
@@ -24,11 +29,11 @@ jobs:
       - name: Build for GitHub Pages
         run: npm run build:github
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          path: dist
+
 
       # ========== 服务器部署 ==========
   build-and-deploy-server:
