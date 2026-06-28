@@ -3,8 +3,9 @@ name: Deploy to server
 on:
   push:
     branches: [ "main" ]
-  # ========== 服务器部署 ==========
-  build-and-deploy-server:
+
+jobs:
+  build-deploy-server:
     runs-on: ubuntu-latest
 
     steps:
