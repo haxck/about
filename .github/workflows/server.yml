@@ -1,5 +1,4 @@
 name: Deploy to server
-environment: HOST
 
 on:
   push:
@@ -7,6 +6,7 @@ on:
 
 jobs:
   build-deploy-server:
+  environment: HOST
     runs-on: ubuntu-latest
 
     steps:
